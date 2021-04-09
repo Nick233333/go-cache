@@ -53,7 +53,7 @@ func (c *Cache) Set(key string, value Value) {
 		c.cache[key] = ele
 	}
 	for c.maxBytes != 0 && int64(c.Len()) > c.maxBytes {
-		delete(c.cache, c.ll.Remove(c.ll.Back()).(entry).key)
+		delete(c.cache, c.ll.Remove(c.ll.Back()).(*entry).key)
 	}
 }
 

@@ -21,14 +21,17 @@ func TestGet(t *testing.T) {
 }
 
 func TestRemoveoldest(t *testing.T) {
-	k1, k2, k3 := "key1", "key2", "k3"
-	v1, v2, v3 := "value1", "value2", "v3"
+	k1, k2, k3 := "key1", "key2", "key3"
+	v1, v2, v3 := "value1", "value2", "value3"
 	cap := len(k1 + k2 + v1 + v2)
 	lru := New(int64(cap))
 	lru.Set(k1, String(v1))
 	lru.Set(k2, String(v2))
 	lru.Set(k3, String(v3))
 
+	if v, ok := lru.Get("key2"); ok {
+		t.Log(v)
+	}
 	if _, ok := lru.Get("key1"); !ok {
 		t.Fatalf("Removeoldest key1 failed")
 	}
